@@ -4,11 +4,11 @@ function showForm(formId) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-
-    function handleFormSubmit(form, event) {
+    function handleFormSubmit(event) {
         event.preventDefault();
+        console.log('Event target:', event.target);
+        console.log('Event target tagName:', event.target.tagName);
+        const form = event.target;
         const formData = new FormData(form);
 
         fetch(form.action, {
@@ -26,15 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    const loginForm = document.querySelector('#login-form form');
+    const registerForm = document.querySelector('#register-form form');
+
     if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            handleFormSubmit(this, e);
-        });
+        loginForm.addEventListener('submit', handleFormSubmit);
     }
 
     if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            handleFormSubmit(this, e);
-        });
+        registerForm.addEventListener('submit', handleFormSubmit);
     }
 });
